@@ -15,7 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from serviFacilApp.views import inicio, registro
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('inicio', inicio, name="inicio"),
+    path('registrar', registro , name="registrarse"),
 ]

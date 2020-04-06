@@ -1,0 +1,50 @@
+{% extends 'base.html' %} {% block body %}
+<div class="container mt-5" [ngStyle]="{'margin-top': '8%'}">
+    <div class="row justify-content-center border border-dark">
+        <div class="col-12">
+            <h1 class="text-center display-4">¡Crea tu perfil Aquí!</h1>
+            <h1 class="text-center ">¡Y empieza a disfrutar de los servicios en ServiFacil!</h1>
+            <form class="my-5">
+                <div class=" form-row justify-content-center">
+
+                    <div class="form-group col-lg-10">
+                        <label>Nombres* :</label>
+                        <input class="w-100" pInputText type="text" placeholder="Required" name="nombres" />
+                    </div>
+                    <!--DIV NOMBRES-->
+
+                    <div class="form-group col-lg-10">
+                        <label>Apellidos* :</label>
+                        <input class="w-100" pInputText type="text" placeholder="Required" name="apellidos" />
+                    </div>
+                    <!--DIV APELLIDOS-->
+
+                    <div class="form-group col-lg-10">
+                        <label>Usuario* :</label>
+                        <input class="w-100" pInputText type="text" placeholder="Required" name="usuario" />
+                    </div>
+                    <!--DIV USUARIO-->
+
+                    <div class="form-group col-lg-10">
+                        <label>Contraseña* :</label>
+                        <input class="w-100" pInputText type="password" placeholder="Required" name="contrasena" />
+                    </div>
+                    <!--DIV USUARIO-->
+
+
+                </div>
+
+                <div class="form-row justify-content-center">
+                    <div class="col-md-4">
+                        <button class="btn btn-primary btn-block ">Guardar</button>
+                    </div>
+                    <div class="col-md-4">
+                        <button class="btn btn-success btn-block">Cancelar</button>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
