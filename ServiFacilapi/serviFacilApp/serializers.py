@@ -21,9 +21,5 @@ class PersonaSerializer(serializers.ModelSerializer):
         print('Todo')
         return None
 
-class UsuariosSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Usuarios
-        fields = ALL_FIELDS
     
 
