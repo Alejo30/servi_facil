@@ -1,6 +1,7 @@
 from rest_framework import serializers
+from pymongo.ssl_support import validate_allow_invalid_certs
 from rest_framework.serializers import ALL_FIELDS
-from .models import Persona, Direccion, TipoUser, Usuarios
+from serviFacilApp.models import Persona, Direccion, TipoUser, Usuarios
 
 
 """Serializadores de ServiFacil"""
