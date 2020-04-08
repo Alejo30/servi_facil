@@ -10,6 +10,24 @@ class DireccionSerializer(serializers.ModelSerializer):
         model = Direccion
         fiels = ALL_FIELDS
 
+class TipoUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TipoUser
+        fields = ALL_FIELDS
+
+class UsuariosSerializer(serializers.ModelSerializer):
+    tipo = TipoUser()
+    class Meta:
+        model = Usuarios
+        fields = ALL_FIELDS
+
+        def create(self, validated_date):
+            tipo = validated_date.pop('tipo')
+            tipo_obj = TipoUser(**tipo)
+            usuario = Usuarios(**validated_date)
+            usuario.tipo_ususario = tipo_obj
+            usuario.save()
+            return usuario
 
 class PersonaSerializer(serializers.ModelSerializer):
     direccion = DireccionSerializer()
@@ -17,9 +35,24 @@ class PersonaSerializer(serializers.ModelSerializer):
         model = Persona
         fields = ALL_FIELDS
 
-    def create (self, validated_data):
-        print('Todo')
-        return None
+    def create(self, validated_data):
+        direccion = validated_data.pop('direccion')
+        direccion_obj = Direccion(**direccion)
+        usuario = validated_data.pop('usuario')
+        usuario_obj = Usuarios(**usuario)
+        persona = Persona(**validated_data)
+        persona.direccion = direccion_obj
+        persona.save()
+        return persona
+
+    def update(self, instance, validated_data):
+        direccion = validated_data.pop('direccion')
+        direccion_obj = Direccion(**direccion)
+        for key, value in validated_data.items():
+            instance._setattr_(key, value)
+            instance.direccion = direccion_obj
+            instance.save()
+        return instance
 
     
 
