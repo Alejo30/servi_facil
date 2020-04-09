@@ -46,8 +46,8 @@ class PersonaSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         direccion = validated_data.pop('direccion')
         direccion_obj = Direccion(**direccion)
-        usuario = validated_data.pop('usuario')
-        usuario_obj = Usuarios(**usuario)
+        #usuario = validated_data.pop('usuario')
+        #usuario_obj = Usuarios(**usuario)
         persona = Persona(**validated_data)
         persona.direccion = direccion_obj
         persona.save()
@@ -57,7 +57,7 @@ class PersonaSerializer(serializers.ModelSerializer):
         direccion = validated_data.pop('direccion')
         direccion_obj = Direccion(**direccion)
         for key, value in validated_data.items():
-            instance._setattr_(key, value)
+            instance.__setattr__(key, value)
             instance.direccion = direccion_obj
             instance.save()
         return instance
