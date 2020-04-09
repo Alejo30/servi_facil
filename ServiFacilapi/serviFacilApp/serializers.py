@@ -18,7 +18,7 @@ class TipoUserSerializer(serializers.ModelSerializer):
         fields = ALL_FIELDS
 
 class UsuariosSerializer(serializers.ModelSerializer):
-    tipo = TipoUser()
+    tipo_usuario = TipoUserSerializer(many=True)
     class Meta:
         model = Usuarios
         fields = ALL_FIELDS

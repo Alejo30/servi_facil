@@ -33,3 +33,7 @@ def registro(request):
         'title': 'Registrarse'
     })
 
+
+class TipoViewSet(ModelViewSet):
+    serializer_class = TipoUser
+    queryset = TipoUser.objects.all()
