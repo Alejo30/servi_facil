@@ -2,7 +2,7 @@ from django.shortcuts import render
 from rest_framework.viewsets import ModelViewSet
 from django.views.generic import ListView
 from serviFacilApp.models import Persona, Direccion, TipoUser, Usuarios
-from serviFacilApp.serializers import PersonaSerializer
+from serviFacilApp.serializers import PersonaSerializer, TipoUserSerializer
 
 # Views en general
 
@@ -23,5 +23,5 @@ def registro(request):
 
 
 class TipoViewSet(ModelViewSet):
-    serializer_class = TipoUser
+    serializer_class = TipoUserSerializer
     queryset = TipoUser.objects.all()
