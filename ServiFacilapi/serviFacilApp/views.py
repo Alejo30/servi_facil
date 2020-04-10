@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from rest_framework.viewsets import ModelViewSet
 from django.views.generic import ListView
-from .models import Persona, Usuarios
-from serviFacilApp.serializers import PersonaSerializer, UsuariosSerializer
+from .models import Persona, Usuarios, TipoUser
+from serviFacilApp.serializers import PersonaSerializer, UsuariosSerializer, TipoUserSerializer
 
 # Views en general
 
@@ -22,6 +22,10 @@ class UsuarioViewsSet(ModelViewSet):
     serializer_class = UsuariosSerializer
     queryset = Usuarios.objects.all()
 
+class TipoViewSet(ModelViewSet):
+    serializer_class = TipoUserSerializer
+    queryset = TipoUser.objects.all()
+
 # Views de los templates.
 def inicio(request):
     return render(request, 'Inicio.html',{
@@ -33,7 +37,9 @@ def registro(request):
         'title': 'Registrarse'
     })
 
+def login(request):
+    return render(request, 'login.html',{
+        'title': 'Login'
+    })
 
-class TipoViewSet(ModelViewSet):
-    serializer_class = TipoUser
-    queryset = TipoUser.objects.all()
+

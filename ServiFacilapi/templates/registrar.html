@@ -1,50 +1,121 @@
-{% extends 'base.html' %} {% block body %}
-<div class="container mt-5" [ngStyle]="{'margin-top': '8%'}">
+{% extends 'base.html' %} {% block title %} ServiFacil | Registrar {% endblock %} {% block body %}
+<div class="container mt-5">
     <div class="row justify-content-center border border-dark">
         <div class="col-12">
             <h1 class="text-center display-4">¡Crea tu perfil Aquí!</h1>
             <h1 class="text-center ">¡Y empieza a disfrutar de los servicios en ServiFacil!</h1>
             <form class="my-5">
                 <div class=" form-row justify-content-center">
-
+                    <div class="form-group col-lg-10">
+                        <label>Cedula* :</label>
+                        <input id="cedula" class="form-control" type="text" required/>
+                    </div>
+                    <!--DIV CEDULA-->
                     <div class="form-group col-lg-10">
                         <label>Nombres* :</label>
-                        <input class="w-100" pInputText type="text" placeholder="Required" name="nombres" />
+                        <input id="nombres" class="form-control" type="text" required/>
                     </div>
                     <!--DIV NOMBRES-->
-
                     <div class="form-group col-lg-10">
                         <label>Apellidos* :</label>
-                        <input class="w-100" pInputText type="text" placeholder="Required" name="apellidos" />
+                        <input id="apellidos" class="form-control" type="text" required/>
                     </div>
                     <!--DIV APELLIDOS-->
-
                     <div class="form-group col-lg-10">
-                        <label>Usuario* :</label>
-                        <input class="w-100" pInputText type="text" placeholder="Required" name="usuario" />
+                        <label>Correo* :</label>
+                        <input id="correo" class="form-control" type="text" required/>
                     </div>
-                    <!--DIV USUARIO-->
-
+                    <!--DIV CORREO-->
                     <div class="form-group col-lg-10">
-                        <label>Contraseña* :</label>
-                        <input class="w-100" pInputText type="password" placeholder="Required" name="contrasena" />
+                        <label>Fecha de Nacimiento :</label>
+                        <input id="fechanac" class="form-control" type="date" required/>
                     </div>
-                    <!--DIV USUARIO-->
-
-
+                    <!--DIV FECHA NAC-->
+                    <div class="form-group col-lg-10">
+                        <label>Telefono* :</label>
+                        <input id="telefono" class="form-control" type="number" required/>
+                    </div>
+                    <!--DIV TELEFONO-->
+                    <h4 class="text-left">Dirección: </h4>
+                    <div class="form-group col-lg-10">
+                        <label>Calle Principal* :</label>
+                        <input id="principal" class="form-control" type="text" required/>
+                    </div>
+                    <!--DIV CALLE PRINCIPAL-->
+                    <div class="form-group col-lg-10">
+                        <label>Calle Secundaria* :</label>
+                        <input id="secundaria" class="form-control" type="text" required/>
+                    </div>
+                    <!--DIV CALLE SECUNDARIA-->
+                    <div class="form-group col-lg-10">
+                        <label>*Numero de Casa :</label>
+                        <input id="numlocal" class="form-control" type="text" />
+                    </div>
+                    <!--DIV NUMERO CASA-->
+                    <button id="btn-guardar" class="btn btn-sm btn-primary">Guardar</button>
                 </div>
-
-                <div class="form-row justify-content-center">
-                    <div class="col-md-4">
-                        <button class="btn btn-primary btn-block ">Guardar</button>
-                    </div>
-                    <div class="col-md-4">
-                        <button class="btn btn-success btn-block">Cancelar</button>
-                    </div>
-
-                </div>
-            </form>
         </div>
+        </form>
     </div>
 </div>
+</div>
+
+<script>
+    const cedula = document.getElementById('cedula');
+    const nombres = document.getElementById('nombres');
+    const apellidos = document.getElementById('apellidos');
+    const correo = document.getElementById('correo');
+    const fechanac = document.getElementById('fechanac');
+    const telefono = document.getElementById('telefono');
+    const calleprincipal = document.getElementById('principal');
+    const callesecuandaria = document.getElementById('secundaria');
+    const numeroLocal = document.getElementById('numlocal');
+    const btnGuardar = document.getElementById('btn-guardar');
+
+    let tieneErrores = false;
+
+    btnGuardar.addEventListener('click', (event) => {
+        event.preventDefault();
+        console.log(cedula.value);
+        console.log(nombres.value);
+        console.log(apellidos.value);
+        console.log(correo.value);
+        console.log(fechanac.value);
+        console.log(telefono.value);
+        console.log(principal.value);
+        console.log(secundaria.value);
+        console.log(numlocal.value);
+        fetch('http://127.0.0.1:8000/api/serviV1/personas/', {
+                method: 'POST',
+                body: JSON.stringify({
+                    cedula: cedula.value,
+                    nombres: nombres.value,
+                    apellidos: apellidos.value,
+                    correo: correo.value,
+                    fechanac: fechanac.value,
+                    telefono: telefono.value,
+                    direccion: {
+                        calleprincipal: calleprincipal.value,
+                        callesecuandaria: callesecuandaria.value,
+                        numeroLocal: numlocal.value
+                    }
+                })
+            })
+            .then(res => {
+                if (res.status === 400) tieneErrores = true;
+
+                return res.json()
+            })
+            .then(data => {
+                if (tieneErrores) {
+                    alert('Revise el Formulario!!')
+                } else {
+                    //window.location.href = 'lista_personas'
+                }
+            })
+            .catch(err => {
+                console.log('ERROR', err);
+            })
+    })
+</script>
 {% endblock %}

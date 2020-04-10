@@ -1,33 +1,31 @@
-{% extends 'base.html' %} {% block body %}
+{% extends 'base.html' %} {% block title %} ServiFacil | Lista Personas {% endblock %} {% block body %}
 <div class="container">
     <h1 class="display-4">{{title}}</h1>
     <div class="row">
-       <div class="col-12">
+        <div class="col-12">
             <table class="table table-bordered table-striped table-hover table-sm table-secondary">
                 <thead class="thead-dark">
-                <tr>
-                    <th>No.</th>
-                    <th>Cedula</th>
-                    <th>Nombres</th>
-                    <th>Apellidos</th>
-                    <th>Contacto-Correo</th>
-                </tr>
+                    <tr>
+                        <th>No.</th>
+                        <th>Cedula</th>
+                        <th>Nombres</th>
+                        <th>Apellidos</th>
+                        <th>Contacto-Correo</th>
+                    </tr>
                 </thead>
-
                 <tbody>
                     {% for persona in personas %}
-
-                        <tr>
-                            <td>{{ forloop.counter }}</td>
-                            <td>{{ persona.cedula }}</td>
-                            <td>{{ persona.nombres }}</td>
-                            <td>{{ persona.apellidos }}</td>
-                            <td>{{ persona.correo}}</td>
-                        </tr>
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ persona.cedula }}</td>
+                        <td>{{ persona.nombres }}</td>
+                        <td>{{ persona.apellidos }}</td>
+                        <td>{{ persona.correo}}</td>
+                    </tr>
                     {% endfor %}
                 </tbody>
             </table>
-       </div>
+        </div>
     </div>
 </div>
 {% endblock %}
