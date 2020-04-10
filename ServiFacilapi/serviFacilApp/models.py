@@ -21,7 +21,7 @@ class Persona(models.Model):
 
 class TipoUser(models.Model):
     nombre = models.CharField(max_length=10, unique=True)
-    Descripcion = models.TextField()
+    Descripcion = models.CharField(max_length=150)
 
 
 class Usuarios(models.Model):

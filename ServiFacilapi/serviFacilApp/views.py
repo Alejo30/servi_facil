@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from rest_framework.viewsets import ModelViewSet
 from django.views.generic import ListView
-from .models import Persona, Usuarios, TipoUser
-from serviFacilApp.serializers import PersonaSerializer, UsuariosSerializer, TipoUserSerializer
+from serviFacilApp.models import Persona, Direccion, TipoUser, Usuarios
+from serviFacilApp.serializers import PersonaSerializer, TipoUserSerializer, UsuariosSerializer
 
 # Views en general
 

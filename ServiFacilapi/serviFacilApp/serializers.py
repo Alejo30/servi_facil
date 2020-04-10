@@ -16,6 +16,12 @@ class TipoUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = TipoUser
         fields = ALL_FIELDS
+        exclude = {}
+        def create(self, validated_date):
+            tipo = TipoUser(**validated_date)
+            tipo.save()
+            return tipo
+
 
         def create(self, validated_data):
             tipo = TipoUser(**validated_data)
@@ -24,7 +30,7 @@ class TipoUserSerializer(serializers.ModelSerializer):
 
 
 class UsuariosSerializer(serializers.ModelSerializer):
-    tipo_usuario = TipoUserSerializer(many=True)
+    tipo_usuario = TipoUserSerializer()
     class Meta:
         model = Usuarios
         fields = ALL_FIELDS
