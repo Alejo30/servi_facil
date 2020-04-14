@@ -23,23 +23,17 @@ class TipoUserSerializer(serializers.ModelSerializer):
             return tipo
 
 
-        def create(self, validated_data):
-            tipo = TipoUser(**validated_data)
-            tipo.save()
-            return tipo
-
-
 class UsuariosSerializer(serializers.ModelSerializer):
-    tipo_usuario = TipoUserSerializer()
+    #tipo_usuario = TipoUserSerializer()
     class Meta:
         model = Usuarios
         fields = ALL_FIELDS
 
         def create(self, validated_data):
-            tipo = validated_data.pop('tipo')
-            tipo_obj = TipoUser(**tipo)
+            #tipo = validated_data.pop('tipo')
+            #tipo_obj = TipoUser(**tipo)
             usuario = Usuarios(**validated_data)
-            usuario.tipo_ususario = tipo_obj
+            #usuario.tipo_ususario = tipo_obj
             usuario.save()
             return usuario
 
