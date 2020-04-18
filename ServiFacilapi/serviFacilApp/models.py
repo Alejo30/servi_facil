@@ -18,10 +18,13 @@ class Persona(models.Model):
     direccion = models.EmbeddedField(
         model_container=Direccion
     )
-
+    def __str__(self):
+        return '{} {}'.format(self.nombres, self.apellidos)
 class TipoUser(models.Model):
     nombre = models.CharField(max_length=10, unique=True)
     descripcion = models.CharField(max_length=150)
+    def __str__(self):
+        return '{}'.format(self.nombre)
 
 
 class Usuarios(models.Model):
@@ -32,6 +35,8 @@ class Usuarios(models.Model):
                                    null=False, blank=False)
     tipo_ususario = models.OneToOneField(TipoUser, on_delete=models.CASCADE,
                                    null=False, blank=False)
+    def __str__(self):
+        return '{}'.format(self.username)
 
 class Empresa(models.Model):
     ruc = models.CharField(max_length=13, unique=True)
@@ -40,11 +45,15 @@ class Empresa(models.Model):
         model_container=Direccion
     )
     persona = models.ForeignKey(Persona, null=True, blank=True, on_delete=models.CASCADE)
+    def __str__(self):
+        return '{}'.format(self.nombre)
 
 class Servicio(models.Model):
     nombre = models.CharField(max_length=50, null=True, blank=True)
     descripcion = models.CharField(max_length=150)
     empresa = models.ForeignKey(Empresa, null=True, blank=True, on_delete=models.CASCADE)
+    def __str__(self):
+        return '{}'.format(self.nombre)
 
 class Turno(models.Model):
     fecha = models.DateField()

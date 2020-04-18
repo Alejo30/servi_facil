@@ -64,18 +64,21 @@ class PersonaSerializer(serializers.ModelSerializer):
 
     
 class EmpresaSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Empresa
         fields = ALL_FIELDS
-    direccion = DireccionSerializer()
 
     def create(self, validated_data):
+        empresa = Empresa(**validated_data)
         direccion = validated_data.pop('direccion')
         direccion_obj = Direccion(**direccion)
-        empresa = Empresa(**validated_data)
         empresa.direccion = direccion_obj
         empresa.save()
         return empresa
+
+    direccion = DireccionSerializer()
+
 
 class ServicioSerializer(serializers.ModelSerializer):
     class Meta:
