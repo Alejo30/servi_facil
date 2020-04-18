@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from pymongo.ssl_support import validate_allow_invalid_certs
 from rest_framework.serializers import ALL_FIELDS
-from serviFacilApp.models import Persona, Direccion, TipoUser, Usuarios
+from serviFacilApp.models import Persona, Direccion, TipoUser, Usuarios, Empresa, Servicio, Turno
 
 
 """Serializadores de ServiFacil"""
@@ -63,4 +63,34 @@ class PersonaSerializer(serializers.ModelSerializer):
         return instance
 
     
+class EmpresaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Empresa
+        fields = ALL_FIELDS
+    direccion = DireccionSerializer()
+
+    def create(self, validated_data):
+        direccion = validated_data.pop('direccion')
+        direccion_obj = Direccion(**direccion)
+        empresa = Empresa(**validated_data)
+        empresa.direccion = direccion_obj
+        empresa.save()
+        return empresa
+
+class ServicioSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Servicio
+        fields = ALL_FIELDS
+    def create(self, validated_data):
+        servicio = Servicio(**validated_data)
+        servicio.save()
+        return servicio
+class TurnoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Turno
+        fields = ALL_FIELDS
+    def create(self, validated_data):
+        turno = Turno(**validated_data)
+        turno.save()
+        return turno
 

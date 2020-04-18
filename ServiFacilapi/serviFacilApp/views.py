@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from rest_framework.viewsets import ModelViewSet
 from django.views.generic import ListView
-from serviFacilApp.models import Persona, Direccion, TipoUser, Usuarios
-from serviFacilApp.serializers import PersonaSerializer, TipoUserSerializer, UsuariosSerializer
+from serviFacilApp.models import Persona, Direccion, TipoUser, Usuarios, Empresa, Servicio, Turno
+from serviFacilApp.serializers import PersonaSerializer, TipoUserSerializer, UsuariosSerializer, EmpresaSerializer, ServicioSerializer, TurnoSerializer
 
 # Views en general
 
@@ -25,6 +25,19 @@ class UsuarioViewsSet(ModelViewSet):
 class TipoViewSet(ModelViewSet):
     serializer_class = TipoUserSerializer
     queryset = TipoUser.objects.all()
+
+class EmpresaViewSet(ModelViewSet):
+    serializer_class = EmpresaSerializer
+    queryset = Empresa.objects.all()
+
+class ServicioViewSet(ModelViewSet):
+    serializer_class = ServicioSerializer
+    queryset = Servicio.objects.all()
+
+class TurnoViewSet(ModelViewSet):
+    serializer_class = TurnoSerializer
+    queryset = Turno.objects.all()
+
 
 # Views de los templates.
 def inicio(request):

@@ -33,6 +33,25 @@ class Usuarios(models.Model):
     tipo_ususario = models.OneToOneField(TipoUser, on_delete=models.CASCADE,
                                    null=False, blank=False)
 
+class Empresa(models.Model):
+    ruc = models.CharField(max_length=13, unique=True)
+    nombre = models.CharField(max_length=50)
+    direccion = models.EmbeddedField(
+        model_container=Direccion
+    )
+    persona = models.ForeignKey(Persona, null=True, blank=True, on_delete=models.CASCADE)
+
+class Servicio(models.Model):
+    nombre = models.CharField(max_length=50, null=True, blank=True)
+    descripcion = models.CharField(max_length=150)
+    empresa = models.ForeignKey(Empresa, null=True, blank=True, on_delete=models.CASCADE)
+
+class Turno(models.Model):
+    fecha = models.DateField()
+    hora = models.TimeField()
+    descripcion = models.CharField(max_length=150)
+    usuario = models.OneToOneField(Usuarios, null=True, blank=True, on_delete=models.CASCADE)
+    servicio = models.OneToOneField(Servicio, null=True, blank=True, on_delete=models.CASCADE)
 
 
 
