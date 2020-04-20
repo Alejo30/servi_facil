@@ -23,7 +23,7 @@
                 <a class="nav-link" href="#">Productos</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Promociona tus servicios</a>
+                <a class="nav-link" href="{% url 'empresa_crear' %}">Promociona tus servicios</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'login' %}">Iniciar Sesión</a>
@@ -36,6 +36,9 @@
             <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Buscar">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
         </form>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'logout' %}">Salir</a>
+        </li>
 
     </div>
 </nav>

@@ -43,6 +43,9 @@ INSTALLED_APPS = [
     'corsheaders',
     'django_filters',
     'serviFacilApp.apps.ServifacilappConfig',
+
+    #Local Apps
+    'usuarios'
 ]
 
 CORS_ORIGIN_ALLOW_ALL = True
@@ -145,4 +148,16 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-LOGIN_REDIRECT_URL = reverse_lazy('inicio')
+STATICFILES_DIRS =(
+    os.path.join(BASE_DIR, 'static'),
+)
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+]
+MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
+LOGIN_URL = 'users/login'
+
+#LOGIN_REDIRECT_URL = reverse_lazy('inicio')

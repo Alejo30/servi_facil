@@ -6,6 +6,7 @@ from .forms import PersonaForm, UsuarioForm, EmpresaForm, ServicioForm, TurnoFor
 from serviFacilApp.models import Persona, Direccion, TipoUser, Usuarios, Empresa, Servicio, Turno
 from serviFacilApp.serializers import PersonaSerializer, TipoUserSerializer, UsuariosSerializer, EmpresaSerializer, ServicioSerializer, TurnoSerializer
 from django.urls import reverse_lazy
+from django.contrib.auth.decorators import login_required
 # Views en general
 
 def lista_personas(request):
@@ -42,6 +43,7 @@ class TurnoViewSet(ModelViewSet):
 
 
 # Views de los templates.
+@login_required
 def inicio(request):
     return render(request, 'Inicio.html',{
         'title': 'Inicio'
