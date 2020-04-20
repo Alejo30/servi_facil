@@ -1,5 +1,5 @@
 from django import forms
-from .models import Persona, Usuarios
+from .models import Persona, Usuarios, Empresa, Servicio, Turno
 
 
 class PersonaForm(forms.ModelForm):
@@ -53,6 +53,74 @@ class DireccionForm(forms.ModelForm):
         'numero_local': forms.TextInput(attrs={'class':'form-control'}),
     }
 
+class EmpresaForm(forms.ModelForm):
+    class Meta:
+        model = Empresa
+
+        fields = [
+            'nombre',
+            'ruc',
+            'direccion',
+            'persona',
+        ]
+        labels = {
+            'nombre': 'Nombre',
+            'ruc': 'RUC',
+            'direccion': 'Direccion',
+            'persona': 'Persona',
+        }
+        widgets = {
+            'nombre': forms.TextInput(attrs={'class':'form-control'}),
+            'ruc': forms.TextInput(attrs={'class':'form-control'}),
+            'direccion': forms.TextInput(attrs={'class':'form-control'}),
+            'persona': forms.Select(attrs={'class':'form-control'}),
+        }
+
+class ServicioForm(forms.ModelForm):
+    class Meta:
+        model = Servicio
+        fields = [
+            'nombre',
+            'descripcion',
+            'empresa',
+        ]
+        labels = {
+            'nombre': 'Nombre',
+            'descripcion': 'Descripcion',
+            'empresa': 'Empresa',
+        }
+        widgets = {
+            'nombre': forms.TextInput(attrs={'class':'form-control'}),
+            'descripcion': forms.TextInput(attrs={'class':'form-control'}),
+            'empresa': forms.Select(attrs={'class':'form-control'}),
+        }
+class TurnoForm(forms.ModelForm):
+    class Meta:
+        model = Turno
+        fields = [
+            'fecha',
+            'hora',
+            'descripcion',
+            'persona',
+            'empresa',
+            'servicio',
+        ]
+        labels = {
+            'fecha': 'Fecha',
+            'hora': 'Hora',
+            'descripcion': 'Descripcion',
+            'persona': 'Persona',
+            'empresa': 'Empresa',
+            'servicio':'Servicio',
+        }
+        widgets = {
+            'fecha': forms.DateInput(attrs={'class':'form-control'}),
+            'hora': forms.TimeInput(attrs={'class':'form-control'}),
+            'descripcion': forms.TextInput(attrs={'class':'form-control'}),
+            'persona': forms.Select(attrs={'class':'form-control'}),
+            'empresa': forms.Select(attrs={'class':'form-control'}),
+            'servicio': forms.Select(attrs={'class':'form-control'}),
+        }
 class UsuarioForm(forms.ModelForm):
     class Meta:
         model = Usuarios

@@ -43,6 +43,7 @@ class Usuarios(models.Model):
 class Empresa(models.Model):
     ruc = models.CharField(max_length=13, unique=True)
     nombre = models.CharField(max_length=50)
+    direccion = models.CharField(max_length=150, null=True, blank=True)
     #direccion = models.EmbeddedField(
      #   model_container=Direccion
     #)
@@ -61,8 +62,9 @@ class Turno(models.Model):
     fecha = models.DateField()
     hora = models.TimeField()
     descripcion = models.CharField(max_length=150)
-    usuario = models.OneToOneField(Usuarios, null=True, blank=True, on_delete=models.CASCADE)
-    servicio = models.OneToOneField(Servicio, null=True, blank=True, on_delete=models.CASCADE)
+    persona = models.ForeignKey(Persona, null=False, blank=False, on_delete=models.CASCADE)
+    empresa = models.ForeignKey(Empresa, null=True, blank=True, on_delete=models.CASCADE)
+    servicio = models.ForeignKey(Servicio, null=True, blank=True, on_delete=models.CASCADE)
 
 
 
