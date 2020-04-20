@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from rest_framework.viewsets import ModelViewSet
-from django.views.generic import CreateView
+from django.views.generic import CreateView, ListView, UpdateView, DeleteView
 from django.http import HttpResponseRedirect
 from .forms import PersonaForm, UsuarioForm, EmpresaForm, ServicioForm, TurnoForm
 from serviFacilApp.models import Persona, Direccion, TipoUser, Usuarios, Empresa, Servicio, Turno
@@ -59,7 +59,7 @@ def login(request):
 
 
 
-#Vista en Clases
+#Vista Basadas en Clases Create
 class UsuarioCreate(CreateView):
     model = Usuarios
     template_name = 'crear_usuario_form.html'
@@ -91,7 +91,7 @@ class EmpresaCreate(CreateView):
     model = Empresa
     form_class = EmpresaForm
     template_name = 'crear_empresa_form.html'
-    success_url = reverse_lazy('inicio')
+    success_url = reverse_lazy('empresa_lista')
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object
@@ -131,4 +131,19 @@ class TurnoCreate(CreateView):
         else:
             return self.render_to_response(self.get_context_data(form=form))
 
+#Vista Basadas en Clases List
+class EmpresaList(ListView):
+    model = Empresa
+    template_name = 'empresa_list.html'
 
+class EmpresaUpdate(UpdateView):
+    model = Empresa
+    form_class = EmpresaForm
+    template_name = 'crear_empresa_form.html'
+    success_url = reverse_lazy('empresa_lista')
+
+class EmpresaDelete(DeleteView):
+    model = Empresa
+    form_class = EmpresaForm
+    template_name = 'empresa_delete.html'
+    success_url = reverse_lazy('empresa_lista')
