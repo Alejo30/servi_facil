@@ -38,18 +38,18 @@ class UsuariosSerializer(serializers.ModelSerializer):
             return usuario
 
 class PersonaSerializer(serializers.ModelSerializer):
-    direccion = DireccionSerializer()
+    #direccion = DireccionSerializer()
     class Meta:
         model = Persona
         fields = ALL_FIELDS
 
     def create(self, validated_data):
-        direccion = validated_data.pop('direccion')
-        direccion_obj = Direccion(**direccion)
+        #direccion = validated_data.pop('direccion')
+        #direccion_obj = Direccion(**direccion)
         #usuario = validated_data.pop('usuario')
         #usuario_obj = Usuarios(**usuario)
         persona = Persona(**validated_data)
-        persona.direccion = direccion_obj
+        #persona.direccion = direccion_obj
         persona.save()
         return persona
 
@@ -71,13 +71,13 @@ class EmpresaSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         empresa = Empresa(**validated_data)
-        direccion = validated_data.pop('direccion')
-        direccion_obj = Direccion(**direccion)
-        empresa.direccion = direccion_obj
+        #direccion = validated_data.pop('direccion')
+        #direccion_obj = Direccion(**direccion)
+        #empresa.direccion = direccion_obj
         empresa.save()
         return empresa
 
-    direccion = DireccionSerializer()
+    #direccion = DireccionSerializer()
 
 
 class ServicioSerializer(serializers.ModelSerializer):
