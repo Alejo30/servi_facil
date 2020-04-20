@@ -3,21 +3,23 @@ from django import forms
 # Create your models here.
 
 class Direccion(models.Model):
-    calle_principal = models.CharField(max_length=120)
-    calle_secundaria = models.CharField(max_length=120)
+    calle_principal = models.CharField(max_length=120, default='NA')
+    calle_secundaria = models.CharField(max_length=120, default='NA')
     numero_local = models.CharField(max_length=120, default='S/N')
 
 
 class Persona(models.Model):
-    cedula = models.CharField(max_length=20, unique=True)
+    cedula = models.CharField(max_length=20)
     nombres = models.CharField(max_length=30)
     apellidos = models.CharField(max_length=30)
     correo = models.CharField(max_length=30)
-    fecha_nacimiento = models.DateField(blank=True, null=True)
-    telefono = models.IntegerField()
-    direccion = models.EmbeddedField(
-        model_container=Direccion
-    )
+    fecha_nacimiento = models.DateField(default="2010-02-02")
+    telefono = models.CharField(max_length=10, null=True, blank=True)
+    direccion = models.CharField(max_length=150, null=True, blank=True)
+    #direccion = models.EmbeddedField(
+     #   model_container=Direccion, null=False, blank=False
+    #)
+
     def __str__(self):
         return '{} {}'.format(self.nombres, self.apellidos)
 class TipoUser(models.Model):
@@ -33,7 +35,7 @@ class Usuarios(models.Model):
     fecha_creacion = models.DateTimeField(auto_now_add=True)
     persona = models.OneToOneField(Persona, on_delete=models.CASCADE,
                                    null=False, blank=False)
-    tipo_ususario = models.OneToOneField(TipoUser, on_delete=models.CASCADE,
+    tipo_ususario = models.ForeignKey(TipoUser, on_delete=models.CASCADE,
                                    null=False, blank=False)
     def __str__(self):
         return '{}'.format(self.username)
@@ -41,9 +43,10 @@ class Usuarios(models.Model):
 class Empresa(models.Model):
     ruc = models.CharField(max_length=13, unique=True)
     nombre = models.CharField(max_length=50)
-    direccion = models.EmbeddedField(
-        model_container=Direccion
-    )
+    direccion = models.CharField(max_length=150, null=True, blank=True)
+    #direccion = models.EmbeddedField(
+     #   model_container=Direccion
+    #)
     persona = models.ForeignKey(Persona, null=True, blank=True, on_delete=models.CASCADE)
     def __str__(self):
         return '{}'.format(self.nombre)
@@ -59,8 +62,9 @@ class Turno(models.Model):
     fecha = models.DateField()
     hora = models.TimeField()
     descripcion = models.CharField(max_length=150)
-    usuario = models.OneToOneField(Usuarios, null=True, blank=True, on_delete=models.CASCADE)
-    servicio = models.OneToOneField(Servicio, null=True, blank=True, on_delete=models.CASCADE)
+    persona = models.ForeignKey(Persona, null=False, blank=False, on_delete=models.CASCADE)
+    empresa = models.ForeignKey(Empresa, null=True, blank=True, on_delete=models.CASCADE)
+    servicio = models.ForeignKey(Servicio, null=True, blank=True, on_delete=models.CASCADE)
 
 
 

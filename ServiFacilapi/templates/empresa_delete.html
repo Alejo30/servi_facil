@@ -1,0 +1,10 @@
+{% extends 'base.html' %} {% block title %} ServiFacil | Empresa {% endblock %}{% block body %}
+
+<form method="post">
+    {% csrf_token %}
+    <h3>¿Desea eliminar la empresa {{ object.nombre }}?</h3>
+    <button class="btn btn-danger" type="submit">Si, eliminar</button>
+    <a class="btn btn-default" href="{% url 'empresa_lista' %}">Cancelar</a>
+</form>
+
+{% endblock %}

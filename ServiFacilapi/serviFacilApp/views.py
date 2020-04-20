@@ -1,9 +1,11 @@
 from django.shortcuts import render
 from rest_framework.viewsets import ModelViewSet
-from django.views.generic import ListView
+from django.views.generic import CreateView, ListView, UpdateView, DeleteView
+from django.http import HttpResponseRedirect
+from .forms import PersonaForm, UsuarioForm, EmpresaForm, ServicioForm, TurnoForm
 from serviFacilApp.models import Persona, Direccion, TipoUser, Usuarios, Empresa, Servicio, Turno
 from serviFacilApp.serializers import PersonaSerializer, TipoUserSerializer, UsuariosSerializer, EmpresaSerializer, ServicioSerializer, TurnoSerializer
-
+from django.urls import reverse_lazy
 # Views en general
 
 def lista_personas(request):
@@ -56,3 +58,92 @@ def login(request):
     })
 
 
+
+#Vista Basadas en Clases Create
+class UsuarioCreate(CreateView):
+    model = Usuarios
+    template_name = 'crear_usuario_form.html'
+    form_class = UsuarioForm
+    second_form_class = PersonaForm
+    success_url = reverse_lazy('inicio')
+
+    def get_context_data(self, **kwargs):
+        context = super(UsuarioCreate, self).get_context_data(**kwargs)
+        if 'form' not in context:
+            context['form'] = self.form_class(self.request.GET)
+        if 'form2' not in context:
+            context['form2'] = self.second_form_class(self.request.GET)
+        return context
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object
+        form = self.form_class(request.POST)
+        form2 = self.second_form_class(request.POST)
+        if form.is_valid() and form2.is_valid():
+            usuario = form.save(commit=False)
+            usuario.persona = form2.save()
+            usuario.save()
+            return HttpResponseRedirect(self.get_success_url())
+        else:
+            return self.render_to_response(self.get_context_data(form=form, form2=form2))
+
+class EmpresaCreate(CreateView):
+    model = Empresa
+    form_class = EmpresaForm
+    template_name = 'crear_empresa_form.html'
+    success_url = reverse_lazy('empresa_lista')
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(self.get_success_url())
+        else:
+            return self.render_to_response(self.get_context_data(form=form))
+class ServicioCreate(CreateView):
+    model = Servicio
+    form_class = ServicioForm
+    template_name = 'crear_servicio_form.html'
+    success_url = reverse_lazy('empresa_crear')
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(self.get_success_url())
+        else:
+            return self.render_to_response(self.get_context_data(form=form))
+
+class TurnoCreate(CreateView):
+    model = Turno
+    form_class = TurnoForm
+    template_name = 'crear_turno_form.html'
+    success_url = reverse_lazy('inicio')
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(self.get_success_url())
+        else:
+            return self.render_to_response(self.get_context_data(form=form))
+
+#Vista Basadas en Clases List
+class EmpresaList(ListView):
+    model = Empresa
+    template_name = 'empresa_list.html'
+
+class EmpresaUpdate(UpdateView):
+    model = Empresa
+    form_class = EmpresaForm
+    template_name = 'crear_empresa_form.html'
+    success_url = reverse_lazy('empresa_lista')
+
+class EmpresaDelete(DeleteView):
+    model = Empresa
+    form_class = EmpresaForm
+    template_name = 'empresa_delete.html'
+    success_url = reverse_lazy('empresa_lista')
