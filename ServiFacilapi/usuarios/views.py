@@ -41,6 +41,7 @@ def signup(request):
         user.first_name = request.POST['first_name']
         user.last_name = request.POST['last_name']
         user.email = request.POST['email']
+        user.tipo_ususario = request.POST['tipo_ususario']
 
         profile = Profile(user=user)
         profile.save()
