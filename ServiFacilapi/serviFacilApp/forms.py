@@ -61,19 +61,19 @@ class EmpresaForm(forms.ModelForm):
             'nombre',
             'ruc',
             'direccion',
-            'persona',
+            'profile',
         ]
         labels = {
             'nombre': 'Nombre',
             'ruc': 'RUC',
             'direccion': 'Direccion',
-            'persona': 'Persona',
+            'profile': 'Usuaerio',
         }
         widgets = {
             'nombre': forms.TextInput(attrs={'class':'form-control'}),
             'ruc': forms.TextInput(attrs={'class':'form-control'}),
             'direccion': forms.TextInput(attrs={'class':'form-control'}),
-            'persona': forms.Select(attrs={'class':'form-control'}),
+            'profile': forms.Select(attrs={'class':'form-control'}),
         }
 
 class ServicioForm(forms.ModelForm):
@@ -101,7 +101,7 @@ class TurnoForm(forms.ModelForm):
             'fecha',
             'hora',
             'descripcion',
-            'persona',
+            'profile',
             'empresa',
             'servicio',
         ]
@@ -109,7 +109,7 @@ class TurnoForm(forms.ModelForm):
             'fecha': 'Fecha',
             'hora': 'Hora',
             'descripcion': 'Descripcion',
-            'persona': 'Persona',
+            'profile': 'Usuario',
             'empresa': 'Empresa',
             'servicio':'Servicio',
         }
@@ -117,7 +117,7 @@ class TurnoForm(forms.ModelForm):
             'fecha': forms.DateInput(attrs={'class':'form-control'}),
             'hora': forms.TimeInput(attrs={'class':'form-control'}),
             'descripcion': forms.TextInput(attrs={'class':'form-control'}),
-            'persona': forms.Select(attrs={'class':'form-control'}),
+            'profile': forms.Select(attrs={'class':'form-control'}),
             'empresa': forms.Select(attrs={'class':'form-control'}),
             'servicio': forms.Select(attrs={'class':'form-control'}),
         }
