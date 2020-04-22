@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     'corsheaders',
     'django_filters',
     'serviFacilApp.apps.ServifacilappConfig',
-
     #Local Apps
     'usuarios'
 ]
@@ -59,6 +58,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
+    'ServiFacilapi.middleware.ProfileCompletionMiddleware'
 ]
 
 ROOT_URLCONF = 'ServiFacilapi.urls'
@@ -97,7 +97,6 @@ REST_FRAMEWORK = {
 }
 
 WSGI_APPLICATION = 'ServiFacilapi.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
@@ -158,6 +157,8 @@ STATICFILES_FINDERS = [
 MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-LOGIN_URL = 'users/login'
+LOGIN_URL = '/users/login/'
+LOGIN_REDIRECT_URL = 'inicio'
+LOGOUT_REDIRECT_URL = LOGIN_URL
 
 #LOGIN_REDIRECT_URL = reverse_lazy('inicio')

@@ -44,7 +44,6 @@ class TurnoViewSet(ModelViewSet):
 
 
 # Views de los templates.
-@login_required
 def inicio(request):
     return render(request, 'Inicio.html',{
         'title': 'Inicio'
