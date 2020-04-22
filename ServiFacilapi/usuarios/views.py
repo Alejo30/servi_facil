@@ -1,58 +1,60 @@
 """Views de Usuarios"""
 #Django
-from django.shortcuts import render
-from django.contrib.auth import authenticate, login, logout
-from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required
-#Expetions
-from django.db.utils import IntegrityError
+from django.contrib.auth import views as auth_views
+from django.urls import reverse, reverse_lazy
+from django.views.generic import DetailView, FormView, UpdateView
+from django.contrib.auth.mixins import LoginRequiredMixin
+#Forms
+from usuarios.forms import SignupForm
 #Modelo
 from django.contrib.auth.models import User
 from usuarios.models import Profile
 
-def login_view(request):
-    """Login View"""
-    """Esto es para iniciar sesion"""
-    if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-        
-        user = authenticate(request, username=username, password=password)
-        if user:
-            login(request, user)
-            return redirect('inicio')
-        else:
-            return render(request, 'usuarios/login.html', {'error': 'Invalid username and password'})
-    return render (request, 'usuarios/login.html')
 
-def signup(request):
-    """Sign-up view"""
-    if request.method == 'POST':
-        username =  request.POST['username']
-        passwd =  request.POST['passwd']
-        passwd_confirmation =  request.POST['passwd_confirmation']
+class UserDetailView(LoginRequiredMixin, DetailView):
+    """Detalle de Usuario"""
+    template_name = 'usuarios/perfil.html'
+    slug_field = 'username'
+    slug_url_kwarg = 'username'
+    queryset = User.objects.all()
+    context_object_name = 'user'
 
-        if passwd != passwd_confirmation:
-             return render(request, 'usuarios/signup.html', {'error': 'Password confirmation does not match'})
-        try:
-            user = User.objects.create_user(username=username, password=passwd)
-        except IntegrityError:
-             return render(request, 'usuarios/signup.html', {'error': 'Username is already in user'})
-        user.first_name = request.POST['first_name']
-        user.last_name = request.POST['last_name']
-        user.email = request.POST['email']
-        user.tipo_ususario = request.POST['tipo_ususario']
+    def get_context_data(self, **kwargs):
+        """Add user's posts to context."""
+        context = super().get_context_data(**kwargs)
+        user = self.get_object()
+        return context
 
-        profile = Profile(user=user)
-        profile.save()
+class UpdateProfileView(LoginRequiredMixin, UpdateView):
+    """Vista basada en clase para actualizar el perfil"""
+    template_name = 'usuarios/update_profile.html'
+    model = Profile
+    fields = ['phone_number', 'picture']
 
-        return redirect('login')
-
-    return render(request, 'usuarios/signup.html')
+    def get_object(self):
+        """Regresa el perfil del usurio"""
+        return self.request.user.profile
+    
+    def get_success_url(self):
+        username= self.object.user.username
+        return reverse('users:detail', kwargs={'username': username})
 
 
-@login_required
-def logout_view(request):
-    """Esto es para cerrar sesion"""
-    logout(request)
-    return redirect('login')
+
+class SignupView(FormView):
+    """Formulario de Registro"""
+    template_name = 'usuarios/signup.html'
+    form_class = SignupForm
+    success_url = reverse_lazy('users:login')
+
+    def form_valid(self, form):
+        """Guardar"""
+        form.save()
+        return super().form_valid(form)
+
+class LoginView(auth_views.LoginView):
+    """Login"""
+    template_name = 'usuarios/login.html'
+
+class LogoutView(LoginRequiredMixin, auth_views.LogoutView):
+    template_name = 'usuarios/logged_out.html'
