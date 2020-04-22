@@ -1,4 +1,4 @@
-{% extends 'base.html' %} {% block title %} ServiFacil | Turnos {% endblock %}{% block body %}
+{% extends 'base.html' %} {% block title %} ServiFacil | Turnos {% endblock %}{% block container %}
 </div>
 <div class="container">
     <h1 class="display-4">Turnos</h1>
@@ -7,7 +7,7 @@
             <table class="table table-bordered table-striped table-hover table-sm table-secondary">
                 <thead class="thead-dark">
                     <tr>
-                         <th>#</th>
+                        <th>#</th>
                         <th>Fecha</th>
                         <th>Hora</th>
                         <th>Servicio</th>
@@ -18,8 +18,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% if object_list %}
-                    {% for turno in object_list %}
+                    {% if object_list %} {% for turno in object_list %}
                     <tr>
                         <td>{{ forloop.counter }}</td>
                         <td>{{ turno.fecha }}</td>
@@ -33,11 +32,8 @@
                             <a class="btn btn-danger" href="{% url 'turno_eliminar' turno.id %}">Eliminar</a>
                         </td>
                     </tr>
-                    {% endfor %}
-                {% else %}
-                    <a>No hay resgistros </a>
-
-                {% endif %}
+                    {% endfor %} {% else %}
+                    <a>No hay resgistros </a> {% endif %}
                 </tbody>
             </table>
         </div>
