@@ -35,7 +35,7 @@
 
         </ul>
         <li class="nav-item">
-            <a href="{% url 'users:detail' request.user.username%}">
+            <a href="{% url 'users:detail' request.user.username %}">
                 {% if request.user.profile.picture %}
                 <img src="{{request.user.profile.picture.url}}" height="35" class="d-inline-block align-top rounded-circle" />
                 {% else %}
