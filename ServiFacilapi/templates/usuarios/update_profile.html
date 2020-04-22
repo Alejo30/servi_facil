@@ -21,7 +21,7 @@
                 {% endfor%}
                 <hr><br> {# Phone number field #}
                 <div class="form-group">
-                    <label>Phone number</label>
+                    <label>Número Celular</label>
                     <input class="form-control {% if form.phone_number.errors %}is-invalid{% endif %}" type="text" name="phone_number" placeholder="Phone number" value="{%if form.errors %}{{form.phone_number.value}}{% else %}{{ profile.phone_number }}{% endif %}" />
                 </div>
 
