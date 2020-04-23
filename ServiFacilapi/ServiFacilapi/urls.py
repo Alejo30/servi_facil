@@ -13,7 +13,7 @@ from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('inicio', inicio, name="inicio"),
+    path('', inicio, name="inicio"),
     path('users/', include(('usuarios.urls', 'users'), namespace='users')),
 
     path('api/serviV1/', include('serviFacilApp.api')),
