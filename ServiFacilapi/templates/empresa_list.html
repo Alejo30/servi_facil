@@ -2,7 +2,8 @@
 </div>
 <div class="container">
     <h1 class="display-4">Empresas</h1>
-    <div class="row">
+    <div><a class="btn btn-success" href="{% url 'empresa_crear' %}">Agregar Empresa</a></div>
+    <div class="row mt-4">
         <div class="col-12">
             <table class="table table-bordered table-striped table-hover table-sm table-secondary">
                 <thead class="thead-dark">
@@ -15,20 +16,26 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% if object_list %} {% for empresa in object_list %}
+                    {% if object_list %}
+                    {% for empresa in object_list %}
                     <tr>
                         <td>{{ empresa.ruc }}</td>
                         <td>{{ empresa.nombre }}</td>
                         <td>{{ empresa.direccion }}</td>
-                        <td>{{ empresa.persona }}</td>
+                        <td>{{ empresa.profile }}</td>
                         <td>
                             <a class="btn btn-primary" href="{% url 'empresa_editar' empresa.id %}">Editar</a>
                             <a class="btn btn-danger" href="{% url 'empresa_eliminar' empresa.id %}">Eliminar</a>
                         </td>
                     </tr>
-                    {% endfor %} {% else %}
+
+                    {% endfor %}
+
+
+                    {% else %}
                     <a>No hay resgistros </a> {% endif %}
                 </tbody>
+
             </table>
         </div>
     </div>

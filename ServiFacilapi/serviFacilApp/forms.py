@@ -67,7 +67,7 @@ class EmpresaForm(forms.ModelForm):
             'nombre': 'Nombre',
             'ruc': 'RUC',
             'direccion': 'Direccion',
-            'profile': 'Usuaerio',
+            'profile': 'Usuario',
         }
         widgets = {
             'nombre': forms.TextInput(attrs={'class':'form-control'}),
