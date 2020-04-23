@@ -4,6 +4,7 @@ from rest_framework.serializers import ALL_FIELDS
 from serviFacilApp.models import Persona, Direccion, TipoUser, Usuarios, Empresa, Servicio, Turno
 
 
+
 """Serializadores de ServiFacil"""
 
 class DireccionSerializer(serializers.ModelSerializer):

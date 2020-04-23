@@ -2,6 +2,8 @@ from djongo import models
 from django import forms
 # Create your models here.
 
+from usuarios.views import Profile
+
 class Direccion(models.Model):
     calle_principal = models.CharField(max_length=120, default='NA')
     calle_secundaria = models.CharField(max_length=120, default='NA')
@@ -47,7 +49,7 @@ class Empresa(models.Model):
     #direccion = models.EmbeddedField(
      #   model_container=Direccion
     #)
-    persona = models.ForeignKey(Persona, null=True, blank=True, on_delete=models.CASCADE)
+    profile = models.ForeignKey(Profile, null=True, blank=True, on_delete=models.CASCADE)
     def __str__(self):
         return '{}'.format(self.nombre)
 
@@ -62,7 +64,7 @@ class Turno(models.Model):
     fecha = models.DateField()
     hora = models.TimeField()
     descripcion = models.CharField(max_length=150)
-    persona = models.ForeignKey(Persona, null=False, blank=False, on_delete=models.CASCADE)
+    profile = models.ForeignKey(Profile, null=False, blank=False, on_delete=models.CASCADE)
     empresa = models.ForeignKey(Empresa, null=True, blank=True, on_delete=models.CASCADE)
     servicio = models.ForeignKey(Servicio, null=True, blank=True, on_delete=models.CASCADE)
 

@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'corsheaders',
     'django_filters',
     'serviFacilApp.apps.ServifacilappConfig',
+    #Local Apps
+    'usuarios'
 ]
 
 CORS_ORIGIN_ALLOW_ALL = True
@@ -56,6 +58,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
+    'ServiFacilapi.middleware.ProfileCompletionMiddleware'
 ]
 
 ROOT_URLCONF = 'ServiFacilapi.urls'
@@ -94,7 +97,6 @@ REST_FRAMEWORK = {
 }
 
 WSGI_APPLICATION = 'ServiFacilapi.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
@@ -145,4 +147,18 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-LOGIN_REDIRECT_URL = reverse_lazy('inicio')
+STATICFILES_DIRS =(
+    os.path.join(BASE_DIR, 'static'),
+)
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+]
+MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
+LOGIN_URL = '/users/login/'
+LOGIN_REDIRECT_URL = 'inicio'
+LOGOUT_REDIRECT_URL = LOGIN_URL
+
+#LOGIN_REDIRECT_URL = reverse_lazy('inicio')

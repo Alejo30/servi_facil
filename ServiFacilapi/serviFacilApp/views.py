@@ -4,8 +4,10 @@ from django.views.generic import CreateView, ListView, UpdateView, DeleteView
 from django.http import HttpResponseRedirect
 from .forms import PersonaForm, UsuarioForm, EmpresaForm, ServicioForm, TurnoForm
 from serviFacilApp.models import Persona, Direccion, TipoUser, Usuarios, Empresa, Servicio, Turno
-from serviFacilApp.serializers import PersonaSerializer, TipoUserSerializer, UsuariosSerializer, EmpresaSerializer, ServicioSerializer, TurnoSerializer
+from serviFacilApp.serializers import PersonaSerializer, TipoUserSerializer, UsuariosSerializer,\
+    EmpresaSerializer, ServicioSerializer, TurnoSerializer
 from django.urls import reverse_lazy
+from django.contrib.auth.decorators import login_required
 # Views en general
 
 def lista_personas(request):
@@ -105,7 +107,7 @@ class ServicioCreate(CreateView):
     model = Servicio
     form_class = ServicioForm
     template_name = 'crear_servicio_form.html'
-    success_url = reverse_lazy('empresa_crear')
+    success_url = reverse_lazy('servicio_lista')
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object
@@ -120,7 +122,7 @@ class TurnoCreate(CreateView):
     model = Turno
     form_class = TurnoForm
     template_name = 'crear_turno_form.html'
-    success_url = reverse_lazy('inicio')
+    success_url = reverse_lazy('turno_lista')
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object
@@ -136,14 +138,46 @@ class EmpresaList(ListView):
     model = Empresa
     template_name = 'empresa_list.html'
 
+class ServicioList(ListView):
+    model = Servicio
+    template_name = 'servicio_list.html'
+
+class TurnoList(ListView):
+    model = Turno
+    template_name = 'turno_list.html'
+
 class EmpresaUpdate(UpdateView):
     model = Empresa
     form_class = EmpresaForm
     template_name = 'crear_empresa_form.html'
     success_url = reverse_lazy('empresa_lista')
 
+class ServicioUpdate(UpdateView):
+    model = Servicio
+    form_class = ServicioForm
+    template_name = 'crear_servicio_form.html'
+    success_url = reverse_lazy('servicio_lista')
+
+class TurnoUpdate(UpdateView):
+    model = Turno
+    form_class = TurnoForm
+    template_name = 'crear_turno_form.html'
+    success_url = reverse_lazy('turno_lista')
+
 class EmpresaDelete(DeleteView):
     model = Empresa
     form_class = EmpresaForm
     template_name = 'empresa_delete.html'
     success_url = reverse_lazy('empresa_lista')
+
+class ServicioDelete(DeleteView):
+    model = Servicio
+    form_class = ServicioForm
+    template_name = 'servicio_delete.html'
+    success_url = reverse_lazy('servicio_lista')
+
+class TurnoDelete(DeleteView):
+    model = Turno
+    form_class = TurnoForm
+    template_name = 'turno_delete.html'
+    success_url = reverse_lazy('turno_lista')

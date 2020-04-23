@@ -1,0 +1,38 @@
+{% extends 'base.html' %} {% block title %} ServiFacil | Servicio {% endblock %}{% block container %}
+</div>
+<div class="container">
+    <h1 class="display-4">Servicios</h1>
+    <div><a class="btn btn-success" href="{% url 'servicio_crear' %}">Agregar Servicio</a></div>
+    <div class="row mt-4">
+        <div class="col-12">
+            <table class="table table-bordered table-striped table-hover table-sm table-secondary">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>#</th>
+                        <th>Nombre</th>
+                        <th>Descripción</th>
+                        <th>Empresa</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if object_list %} {% for servicio in object_list %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ servicio.nombre }}</td>
+                        <td>{{ servicio.descripcion }}</td>
+                        <td>{{ servicio.empresa }}</td>
+                        <td>
+                             <a class="btn btn-success" href="{% url 'turno_crear' %}">Solicitar</a>
+                            <a class="btn btn-primary" href="{% url 'servicio_editar' servicio.id %}">Editar</a>
+                            <a class="btn btn-danger" href="{% url 'servicio_eliminar' servicio.id %}">Eliminar</a>
+                        </td>
+                    </tr>
+                    {% endfor %} {% else %}
+                    <a>No hay resgistros </a> {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
