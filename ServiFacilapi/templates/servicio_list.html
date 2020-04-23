@@ -23,6 +23,7 @@
                         <td>{{ servicio.descripcion }}</td>
                         <td>{{ servicio.empresa }}</td>
                         <td>
+                             <a class="btn btn-success" href="{% url 'turno_crear' %}">Solicitar</a>
                             <a class="btn btn-primary" href="{% url 'servicio_editar' servicio.id %}">Editar</a>
                             <a class="btn btn-danger" href="{% url 'servicio_eliminar' servicio.id %}">Eliminar</a>
                         </td>

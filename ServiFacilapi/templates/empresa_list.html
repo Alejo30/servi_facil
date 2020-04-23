@@ -11,19 +11,23 @@
                         <th>RUC</th>
                         <th>Nombre</th>
                         <th>Direccion</th>
-                        <th>Propietarios</th>
+                        <th>Propietario</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% if object_list %}
+
+
                     {% for empresa in object_list %}
+
                     <tr>
                         <td>{{ empresa.ruc }}</td>
                         <td>{{ empresa.nombre }}</td>
                         <td>{{ empresa.direccion }}</td>
                         <td>{{ empresa.profile }}</td>
                         <td>
+                            <a class="btn btn-success" href="{% url 'servicio_lista' %}">Ver Servicios</a>
                             <a class="btn btn-primary" href="{% url 'empresa_editar' empresa.id %}">Editar</a>
                             <a class="btn btn-danger" href="{% url 'empresa_eliminar' empresa.id %}">Eliminar</a>
                         </td>
